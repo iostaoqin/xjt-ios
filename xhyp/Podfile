@@ -1,0 +1,36 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'miaosu' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for miaosu
+
+  target 'miaosuTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'miaosuUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+   pod 'AFNetworking', '~> 3.2.1'
+   pod 'IQKeyboardManager', '~> 6.2.0'
+   pod 'Masonry', '~> 1.1.0'
+   pod 'MBProgressHUD', '~> 1.1.0'
+   pod 'MJRefresh', '~> 3.1.15.7'
+   pod 'MJExtension', '~> 3.0.15.1'
+   pod 'SDWebImage'
+   pod 'BRPickerView', '~> 2.2.1'
+   pod 'RESideMenu', '~> 4.0.7'
+   pod 'BRPickerView', '~> 2.2.1'
+   pod 'TZImagePickerController', '~> 3.1.6'
+   pod 'PPNetworkHelper', '~> 0.8.1'
+   pod 'JPush', '~> 3.1.2'
+   pod 'JKCategories'
+   pod 'SDCycleScrollView', '~> 1.75'
+   pod 'SensorsAnalyticsSDK', '~> 1.10.20'
+   pod 'JXCategoryView', '~> 1.1.9'
+end
