@@ -163,7 +163,7 @@
     }
     
     UIButton *submitBtn =[self.view buttonCreateGradientWithCornerRadius:6 btnWidth:343* JT_ADAOTER_WIDTH btnHeight:46* JT_ADAOTER_WIDTH startLocationColor:@"#10ACDC" endLocationColor:@"01D3C7"];
-    [submitBtn setTitle:@"提交审核" forState:UIControlStateNormal];
+    [submitBtn setTitle:@"提交绑卡" forState:UIControlStateNormal];
     submitBtn.titleLabel.font = kFontSystem(registFont);
     [footerView addSubview:submitBtn];
     [submitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
