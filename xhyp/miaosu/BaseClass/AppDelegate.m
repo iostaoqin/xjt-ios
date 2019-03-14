@@ -200,6 +200,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
                 [self xiaojintiao:launchOptions];
             }
             
+            
         }
     } failure:^(NSError *error) {
         JTLog(@"%@",error);
