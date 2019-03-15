@@ -252,7 +252,7 @@
         dispatch_source_cancel(self.countdownTimer);
 //        dispatch_cancel(self.countdownTimer);
     }
-    __block int timeout = 10; //（秒）倒计时时间
+    __block int timeout = 60; //（秒）倒计时时间
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     self.countdownTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
     dispatch_source_set_timer(self.countdownTimer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
