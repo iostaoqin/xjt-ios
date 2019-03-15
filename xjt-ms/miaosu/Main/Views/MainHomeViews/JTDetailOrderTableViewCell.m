@@ -78,7 +78,7 @@
             self.detailNameLable.text=   [NSString stringWithFormat:@"%@元",[NSString stringWithFormat:@"%.2f",[JFHSUtilsTool roundFloat:[loanModel.repaymentAmount floatValue]/100]]];
             
         }else{
-            self.detailNameLable.text = loanModel.recentRepaymentDate = [JFHSUtilsTool getDateStringWithTimeStr:loanModel.repaymentDate showType:@"yyyy-MM-dd"];
+            self.detailNameLable.text = loanModel.recentRepaymentDate = [JFHSUtilsTool getDateStringWithTimeStr:loanModel.repaymentDate showType:@"yyyy-MM-dd HH:mm:ss"];
             
         }
      
@@ -88,7 +88,7 @@
             self.detailNameLable.text=   [NSString stringWithFormat:@"%@元",[NSString stringWithFormat:@"%.2f",[JFHSUtilsTool roundFloat:[loanModel.repaymentAmount floatValue]/100]]];
             
         }else{
-            self.detailNameLable.text = loanModel.recentRepaymentDate = [JFHSUtilsTool getDateStringWithTimeStr:loanModel.repaymentDate showType:@"yyyy-MM-dd"];
+            self.detailNameLable.text = loanModel.recentRepaymentDate = [JFHSUtilsTool getDateStringWithTimeStr:loanModel.repaymentDate showType:@"yyyy-MM-dd HH:mm:ss"];
             
         }
         self.nameLable.text  = leftStr[1][idx];
