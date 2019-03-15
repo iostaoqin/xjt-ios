@@ -185,6 +185,7 @@
 //    [_renewalBgView removeFromSuperview];
     _renewalBgView.hidden = YES;
     _renewalContentView.hidden = YES;
+    _renewalContentView.secondCodeTextFied.text = @"";
 //    [_renewalContentView removeFromSuperview];
 }
 -(void)codeEvent:(UIButton *)codebtn{
@@ -197,6 +198,7 @@
 //    [_renewalContentView removeFromSuperview];
     _renewalBgView.hidden = YES;
     _renewalContentView.hidden = YES;
+    _renewalContentView.secondCodeTextFied.text = @"";
     [self firstRenewalBtnEventClick:codebtn];
 }
 -(void)secondBtnEventClick:(NSString *)codeStr{
