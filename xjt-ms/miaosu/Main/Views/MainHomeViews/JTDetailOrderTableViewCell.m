@@ -72,7 +72,7 @@
 
 //    self.nameLable.text = str;
     if ([loanModel.recordType isEqualToString:@"1"]) {
-        self.nameLable.text  = leftStr[idx];
+        self.nameLable.text  = leftStr[0][idx];
         //还款记录
         if (idx ==0) {
             self.detailNameLable.text=   [NSString stringWithFormat:@"%@元",[NSString stringWithFormat:@"%.2f",[JFHSUtilsTool roundFloat:[loanModel.repaymentAmount floatValue]/100]]];
@@ -91,7 +91,7 @@
             self.detailNameLable.text = loanModel.recentRepaymentDate = [JFHSUtilsTool getDateStringWithTimeStr:loanModel.repaymentDate showType:@"yyyy-MM-dd"];
             
         }
-        self.nameLable.text  = leftStr[idx];
+        self.nameLable.text  = leftStr[1][idx];
     }
     
 }

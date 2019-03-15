@@ -179,7 +179,7 @@
         secondCell  =[[JTDetailOrderTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cell];
     }
     if (self.payMArr.count) {
-        [secondCell getPayLeftData:self.nameArr[indexPath.section] payModel:self.payMArr[indexPath.section]index:indexPath.row];
+        [secondCell getPayLeftData:self.nameArr payModel:self.payMArr[indexPath.section]index:indexPath.row];
     }
     if (indexPath.section==0 &&indexPath.row ==1) {
         secondCell.lineLable.hidden = NO;
