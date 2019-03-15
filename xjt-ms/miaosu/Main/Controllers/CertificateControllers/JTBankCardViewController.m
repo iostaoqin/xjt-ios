@@ -17,6 +17,7 @@
 @property (nonatomic, strong)NSString *bankType;//银行卡内型
 @property (nonatomic,strong)NSMutableArray *bankArr;
 @property (nonatomic, strong)JTBankSucessView *bankSucessView;
+@property (nonatomic, assign)BOOL isBankTypeQualified;//银行卡是否合理
 @end
 
 @implementation JTBankCardViewController
@@ -59,7 +60,7 @@
         }
             break;
     }
-    
+    self.isBankTypeQualified  = NO;
 }
 #pragma mark  - 得到银行卡认证成功的数据
 -(void)bankApplySucessData{
@@ -237,73 +238,41 @@
         [self checkBackqualified:bankCell.rightNameTextFiled.text];
     }else{
         //提交审核
+        //判断用户是否输入验证码
+        if ([JFHSUtilsTool isBlankString:codeCell.rightNameTextFiled.text]) {
+            //提示用户
+            [[JFHudMsgTool shareHusMsg]msgHud:MBProgressHUDModeText msgStr:codeCell.rightNameTextFiled.placeholder];
+            [[JFHudMsgTool shareHusMsg]hiddenHud:MBProgressHUDModeText];
+        }else{
+            //提交绑定
+
         if (self.bankArr.count) {
             [self.bankArr enumerateObjectsUsingBlock:^(JTCertificationModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
                 if ([model.bankBin isEqualToString:self.bankType]) {
                     //获取到对应的bin拿到bankcode
                     [self submitBankApply:model.bankCode xteleNumberStr:teleCell.rightNameTextFiled.text bankStr:bankCell.rightNameTextFiled.text codeStr:codeCell.rightNameTextFiled.text];
                     //停止循环
+                    self.isBankTypeQualified  = YES;
                     *stop = YES;
                 }
             }];
+            if (self.isBankTypeQualified == NO) {
+                [[JFHudMsgTool shareHusMsg]msgHud:MBProgressHUDModeText msgStr:@"银行卡错误或不支持的银行卡"];
+                [[JFHudMsgTool shareHusMsg]hiddenHud:MBProgressHUDModeText];
+            }
         }
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    //    NSIndexPath *teleIndex  =[NSIndexPath indexPathForRow:1 inSection:0];
-    //    JTBankTableViewCell *teleCell = (JTBankTableViewCell *)[_bankTableView cellForRowAtIndexPath:teleIndex];//预留手机号
-    //    NSIndexPath *passwordIndex  =[NSIndexPath indexPathForRow:2 inSection:0];
-    //    JTBankTableViewCell *bankCell = (JTBankTableViewCell *)[_bankTableView cellForRowAtIndexPath:passwordIndex];//银行卡号
-    //    NSIndexPath *codeIndex  =[NSIndexPath indexPathForRow:3 inSection:0];
-    //    JTBankTableViewCell *codeCell = (JTBankTableViewCell *)[_bankTableView cellForRowAtIndexPath:codeIndex];//验证码
-    //    if ([JFHSUtilsTool isBlankString:teleCell.rightNameTextFiled.text]||[JFHSUtilsTool isBlankString:bankCell.rightNameTextFiled.text]||[JFHSUtilsTool isBlankString:codeCell.rightNameTextFiled.text]) {
-    //        NSString *msg;
-    //        msg = [JFHSUtilsTool isBlankString:teleCell.rightNameTextFiled.text]?teleCell.rightNameTextFiled.placeholder:[JFHSUtilsTool isBlankString:bankCell.rightNameTextFiled.text]?bankCell.rightNameTextFiled.placeholder:[JFHSUtilsTool isBlankString:codeCell.rightNameTextFiled.text]?codeCell.rightNameTextFiled.placeholder:@"";
-    //        [[JFHudMsgTool shareHusMsg]msgHud:MBProgressHUDModeText msgStr:msg];
-    //        [[JFHudMsgTool shareHusMsg]hiddenHud:MBProgressHUDModeText];
-    //    }else{
-    //        NSString *binUrl  =@"https://ccdcapi.alipay.com/validateAndCacheCardInfo.json";
-    //        NSDictionary *binDic =@{@"cardNo":bankCell.rightNameTextFiled.text,@"cardBinCheck":@"true"};
-    //        [PPNetworkHelper GET:[JFHSUtilsTool conectUrl:[binDic mutableCopy] url:binUrl] parameters:nil success:^(id responseObject) {
-    //            JTLog(@"%@",responseObject);
-    //            //获取银行编
-    //            NSString *bankCode  = [NSString stringWithFormat:@"%@",responseObject[@"bank"]];
-    //            if (self.bankArr.count) {
-    //                [self.bankArr enumerateObjectsUsingBlock:^(JTCertificationModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
-    //                    if ([model.bankBin isEqualToString:bankCode]) {
-    //                        //获取到对应的bin拿到bankcode
-    //                        [self submitBankApply:model.bankCode xteleNumberStr:teleCell.rightNameTextFiled.text bankStr:bankCell.rightNameTextFiled.text codeStr:codeCell.rightNameTextFiled.text];
-    //                        //停止循环
-    //                        *stop = YES;
-    //                    }
-    //                }];
-    //            }else{
-    //                if ([[NSString stringWithFormat:@"%@",responseObject[@"resultCode"]]isEqualToString:@"2"]) {
-    //                    [self againLogin];
-    //                }else{
-    //                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    //                        [[JFHudMsgTool shareHusMsg]msgHud:MBProgressHUDModeText msgStr:responseObject[@"resultCodeMessage"]];
-    //                        [[JFHudMsgTool shareHusMsg]hiddenHud:MBProgressHUDModeText];
-    //                    });
-    //                }
-    //            }
-    //
-    //        } failure:^(NSError *error) {
-    //
-    //        }];
-    //    }
+    }
 }
 #pragma mark 提交审核
 -(void)submitBankApply:(NSString *)bankCode xteleNumberStr:(NSString  *)tele bankStr:(NSString *)bank codeStr:(NSString *)code{
+    //先判断 用户是不是随便输入的验证码
+    if ([JFHSUtilsTool isBlankString:self.bankOrderId]) {
+        //
+        [[JFHudMsgTool shareHusMsg]msgHud:MBProgressHUDModeText msgStr:@"请输入正确的验证码"];
+        [[JFHudMsgTool shareHusMsg]hiddenHud:MBProgressHUDModeText];
+    }else{
         NSString  *bankUrl   =[NSString  stringWithFormat:@"%@/xjt/user/bank/blindcard",JT_MS_URL];
         NSDictionary *bankDic   = @{@"bankCode":bankCode,@"cardNo":bank,@"phoneNumber":tele,@"orderId":self.bankOrderId,@"msgCode":code};
         [[JFHudMsgTool shareHusMsg]msgHud:MBProgressHUDModeIndeterminate msgStr:@"提交审核中..."];
@@ -337,6 +306,7 @@
         } withErrorBlock:^(NSError * _Nonnull error) {
             [[JFHudMsgTool shareHusMsg]hiddenHud:MBProgressHUDModeIndeterminate];
         }];
+         }
 }
 -(void)codeSubmitEventClick:(UIButton *)codeBtn{
     NSIndexPath *codeIndex  =[NSIndexPath indexPathForRow:1 inSection:0];
@@ -363,9 +333,14 @@
                         //获取到对应的bin拿到bankcode
                         [self getCodeDataBackCode:model.bankCode xteleNumberStr:teleCell.rightNameTextFiled.text bankStr:bankCell.rightNameTextFiled.text codeBtn:codeBtn];
                         //停止循环
+                        self.isBankTypeQualified = YES;
                         *stop = YES;
                     }
                 }];
+                if (self.isBankTypeQualified  == NO) {
+                    [[JFHudMsgTool shareHusMsg]msgHud:MBProgressHUDModeText msgStr:@"银行卡错误或不支持的银行卡"];
+                    [[JFHudMsgTool shareHusMsg]hiddenHud:MBProgressHUDModeText];
+                }
             }
         }
         
@@ -475,9 +450,14 @@
                                 //获取到对应的bin拿到bankcode
                                 [self getCodeDataBackCode:model.bankCode xteleNumberStr:tele bankStr:bank codeBtn:btn];
                                 //停止循环
+                                self.isBankTypeQualified = YES;
                                 *stop = YES;
                             }
                         }];
+                        if (self.isBankTypeQualified  == NO) {
+                            [[JFHudMsgTool shareHusMsg]msgHud:MBProgressHUDModeText msgStr:@"银行卡错误或不支持的银行卡"];
+                            [[JFHudMsgTool shareHusMsg]hiddenHud:MBProgressHUDModeText];
+                        }
                     }
                 }else{
                     
@@ -493,4 +473,5 @@
         [[JFHudMsgTool shareHusMsg]hiddenHud:MBProgressHUDModeText];
     }
 }
+//18575511205
 @end

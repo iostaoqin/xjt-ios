@@ -34,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 //提交银行卡认证
 @property (nonatomic,  strong)NSString  *bankBin;//
 @property (nonatomic,  strong)NSString  *bankCode;//
+@property (nonatomic,  strong)NSString  *bank;//遍历bank拿到对应的银行卡内型
 //获取银行卡认证成功x的信息
 @property (nonatomic,  strong)NSString  *cardNo;//
 @property (nonatomic,  strong)NSString  *bankColor;//
