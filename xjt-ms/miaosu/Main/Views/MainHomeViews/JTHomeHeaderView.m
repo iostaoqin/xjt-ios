@@ -70,8 +70,8 @@
          self.tipsLable.font =  kFontSystem(10);
     }
     self.nameLable.text = [JFHSUtilsTool decodeFromPercentEscapeString:credit_text];
-    NSString *priceStr = @"100.00元";
-    NSString *str = @"100.00";
+    NSString *priceStr = @"300.00元";
+    NSString *str = @"300.00";
     NSMutableAttributedString *att = [[NSMutableAttributedString alloc]initWithString:priceStr];
     [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:36.0] range:NSMakeRange(0 , str.length)];
     self.priceLable.attributedText = att;

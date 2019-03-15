@@ -238,9 +238,12 @@
     
 }
 -(void )againLogin{
-    JTLoginViewController *loginVC  =[[JTLoginViewController alloc]init];
-    JTBaseNavigationController *nav = [[JTBaseNavigationController alloc] initWithRootViewController:loginVC];
-    [self presentViewController:nav animated:YES completion:nil];
+//    JTLoginViewController *loginVC  =[[JTLoginViewController alloc]init];
+//    JTBaseNavigationController *nav = [[JTBaseNavigationController alloc] initWithRootViewController:loginVC];
+//    [self presentViewController:nav animated:YES completion:nil];
+    //当用户在其他 的 设备上登录 之后 清空本地 存储
+    JFUserInfoTool *userInfo = [[JFUserInfoTool alloc]init];
+    [JFUserManager shareManager].currentUserInfo   = userInfo;
 }
 -(JTRenewalView *)renewalContentView{
     if (!_renewalContentView) {

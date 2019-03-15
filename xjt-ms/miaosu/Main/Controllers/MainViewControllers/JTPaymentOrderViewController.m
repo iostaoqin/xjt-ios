@@ -60,13 +60,12 @@
                 }
             }
         }else{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [[JFHudMsgTool shareHusMsg]msgHud:MBProgressHUDModeText msgStr:responseObject[@"resultCodeMessage"]];
+                [[JFHudMsgTool shareHusMsg]hiddenHud:MBProgressHUDModeText];
+            });
             if ([[NSString stringWithFormat:@"%@",responseObject[@"resultCode"]]isEqualToString:@"2"]) {
                 [self againLogin];
-            }else{
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [[JFHudMsgTool shareHusMsg]msgHud:MBProgressHUDModeText msgStr:responseObject[@"resultCodeMessage"]];
-                    [[JFHudMsgTool shareHusMsg]hiddenHud:MBProgressHUDModeText];
-                });
             }
         }
         [self.paymentOrderTb  reloadData];
