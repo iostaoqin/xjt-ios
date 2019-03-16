@@ -33,9 +33,9 @@
     _hud_msg.removeFromSuperViewOnHide = YES;
     if (mode == MBProgressHUDModeText) {
         
-        [_hud_msg hideAnimated:YES afterDelay:1.0f];
+        [_hud_msg hideAnimated:YES afterDelay:1.5f];
     }else{
-        [_hud_msg hideAnimated:YES afterDelay:0.2f];
+        [_hud_msg hideAnimated:YES afterDelay:0.5f];
     }
 }
 @end
