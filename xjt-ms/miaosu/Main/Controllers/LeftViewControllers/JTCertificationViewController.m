@@ -788,4 +788,5 @@ NSInteger certicationTotalCountdownTime  = 0;
      [[JFHudMsgTool  shareHusMsg]msgHud:MBProgressHUDModeIndeterminate msgStr:@""];
     [self CertificationData:type];
 }
+
 @end
