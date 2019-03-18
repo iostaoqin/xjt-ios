@@ -55,7 +55,7 @@
     }
     [[JFHudMsgTool shareHusMsg]msgHud:MBProgressHUDModeIndeterminate msgStr:@"加载中"];
     [PPNetworkHelper GET:loanStr parameters:nil success:^(id responseObject) {
-        JTLog(@"%@",responseObject);
+        JTLog(@"请求配置信息=%@",responseObject);
         [[JFHudMsgTool shareHusMsg]hiddenHud:MBProgressHUDModeIndeterminate];
         if ([[NSString stringWithFormat:@"%@",responseObject[@"resultCode"]]isEqualToString:@"0"]) {
             [self.loanArr removeAllObjects];
@@ -115,7 +115,7 @@
     NSString *managementFree =  [NSString stringWithFormat:@"%.2f元",[JFHSUtilsTool roundFloat:[totalPrice floatValue] *[model.periodDays integerValue]* [model.fee floatValue]/10000]];
   
     //利息interest
-    NSString *interestStr  = [NSString stringWithFormat:@"%.2f元",[JFHSUtilsTool roundFloat:[totalPrice floatValue] * [model.interest floatValue]/10000 * 7]];
+    NSString *interestStr  = [NSString stringWithFormat:@"%.2f元",[JFHSUtilsTool roundFloat:[totalPrice floatValue] * [model.interest floatValue]/10000 * [model.periodDays integerValue] ]];
     //到账金额 = 借款金额-手续费(管理费)
     NSString *price=  [NSString stringWithFormat:@"%.2f元", [totalPrice floatValue]-[managementFree floatValue]];
     NSArray *temArr = @[@[],@[[NSString stringWithFormat:@"%@天",model.periodDays],interestStr,managementFree],@[price,[JFHSUtilsTool groupedString:model.cardNo]]];
@@ -300,8 +300,10 @@
         //提示用户
         [self alertUser];
     }else{
+        AppDelegate * appDelegate=(AppDelegate*)[[UIApplication sharedApplication]delegate];
+      
         NSString  *submitStr =[NSString stringWithFormat:@"%@/xjt/user/apply",JT_MS_URL];
-        NSDictionary *dic =@{@"loanAmount":self.totalPrice,@"periodNum":lomodel.periodNum,@"periodDays":lomodel.periodDays,@"loanContractVersion":@"1.0.1"};
+        NSDictionary *dic =@{@"loanAmount":self.totalPrice,@"periodNum":lomodel.periodNum,@"periodDays":lomodel.periodDays,@"loanContractVersion":appDelegate.messageArr[4]};
         JTLog(@"%@",dic);
         [[JFHudMsgTool shareHusMsg]msgHud:MBProgressHUDModeIndeterminate msgStr:@"申请中..."];
         [JFHttpsTool requestType:@"POST" passwordStr:@"" putWithUrl:submitStr withParameter:dic withSuccess:^(id  _Nonnull data, NSString * _Nonnull msg) {

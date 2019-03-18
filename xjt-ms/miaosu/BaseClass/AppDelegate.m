@@ -152,7 +152,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     [PPNetworkHelper GET:agreementUrl parameters:nil success:^(id responseObject) {
         JTLog(@"协议地址=%@",responseObject);
         if ([[NSString stringWithFormat:@"%@",responseObject[@"resultCode"]]isEqualToString:@"0"]) {
-            self.messageArr  = @[responseObject[@"loanApplicationUrl"],responseObject[@"userServiceUrl"],responseObject[@"customQrCodeUrl"],responseObject[@"userMessageQuertUrl"]];
+            self.messageArr  = @[responseObject[@"loanApplicationUrl"],responseObject[@"userServiceUrl"],responseObject[@"customQrCodeUrl"],responseObject[@"userMessageQuertUrl"],responseObject[@"agreementVersion"]];
         }
     } failure:^(NSError *error) {
         
