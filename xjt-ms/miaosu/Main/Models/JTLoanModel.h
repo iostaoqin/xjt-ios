@@ -48,6 +48,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,  strong)NSString  *idCardNo;//借款人账户
 @property (nonatomic,  strong)NSString  *loanAmount;//i借款金额
 @property (nonatomic,  strong)NSString  *repaymentPlanId;//还款订单id
+//放款之后的银行卡号和 名字
+@property (nonatomic,  strong)NSString  *bankAccountNumber;//卡号
+@property (nonatomic,  strong)NSString  *bankName2;//银行名字
 @end
 
 NS_ASSUME_NONNULL_END

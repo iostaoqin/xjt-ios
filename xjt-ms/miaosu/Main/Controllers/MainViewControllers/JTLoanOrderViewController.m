@@ -96,7 +96,7 @@
                     //应还日期
                     loanModel.recentRepaymentDate = [JFHSUtilsTool getDateStringWithTimeStr:loanModel.recentRepaymentDate showType:@"yyyy-MM-dd"];
                     //到账卡号 123456
-                    NSString *bankName = [NSString stringWithFormat:@"%@(%@)",loanModel.bankName,[loanModel.cardNo substringFromIndex:loanModel.cardNo.length -4]];
+                    NSString *bankName = [NSString stringWithFormat:@"%@(%@)",loanModel.bankName2,[loanModel.bankAccountNumber substringFromIndex:loanModel.bankAccountNumber.length -4]];
                     loanModel.repaymentNeedAmount =   [NSString stringWithFormat:@"%.2f",[JFHSUtilsTool roundFloat:[loanModel.repaymentNeedAmount floatValue]/100]];
                     loanModel.applyAmount =   [NSString stringWithFormat:@"%.2f",[JFHSUtilsTool roundFloat:[loanModel.applyAmount floatValue]/100]];
                     loanModel.interestAmount =   [NSString stringWithFormat:@"%.2f",[JFHSUtilsTool roundFloat:[loanModel.interestAmount floatValue]/100]];
@@ -285,19 +285,31 @@
 }
 #pragma mark - 立即还款
 -(void)firstBtnClick{
+    //先判断银行卡是否存在不存在提示用户 去 绑卡
     JTLoanModel *loanModel =self.bouncedArr[0];
+    if ([JFHSUtilsTool isBlankString:loanModel.cardNo]) {
+        [[JFHudMsgTool shareHusMsg]msgHud:MBProgressHUDModeText msgStr:@"银行卡已经解绑，请先去认证中心绑定银行卡"];
+        [[JFHudMsgTool shareHusMsg]hiddenHud:MBProgressHUDModeText];
+    }else{
+
     //到账卡号 123456
     NSString *bankName = [NSString stringWithFormat:@"%@(尾号%@)",loanModel.bankName,[loanModel.cardNo substringFromIndex:loanModel.cardNo.length -4]];
     [self  renewalUI:@[@"还款",@"还款金额:",@"支付银行:",[NSString stringWithFormat:@"%@元",loanModel.repaymentNeedAmount],bankName,@"确认还款"] showType:@"1"tele:loanModel.phoneNumber];
+        
+    }
 }
 #pragma mark - 我要续期
 -(void)secondBtnClick{
     JTLoanModel *loanModel =self.bouncedArr[0];
-    
+    if ([JFHSUtilsTool isBlankString:loanModel.cardNo]) {
+        [[JFHudMsgTool shareHusMsg]msgHud:MBProgressHUDModeText msgStr:@"银行卡已经解绑，请先去认证中心绑定银行卡"];
+        [[JFHudMsgTool shareHusMsg]hiddenHud:MBProgressHUDModeText];
+    }else{
     NSString *feeAmountstr =   [NSString stringWithFormat:@"%.2f",[JFHSUtilsTool roundFloat:[loanModel.renewNeedAmount floatValue]/100]];
     //到账卡号 123456
     NSString *bankName = [NSString stringWithFormat:@"%@(尾号%@)",loanModel.bankName,[loanModel.cardNo substringFromIndex:loanModel.cardNo.length -4]];
     [self  renewalUI:@[@"续期",@"续期费:",@"支付银行:",[NSString stringWithFormat:@"%@元",feeAmountstr],bankName,@"确认续期"] showType:@"3"tele:loanModel.phoneNumber];
+    }
 }
 #pragma mark -  弹框的一系列事件处理
 #pragma mark - 我要续期 或者 还款
