@@ -124,8 +124,6 @@
 #define JT_MS_URL              @"http://apitest.jiebangbang.cn:28080/xjtapi"
 /* 正式域名*/
 //#define JT_MS_URL             @"http://api.jiebangbang.cn/mallapi"
-
-#define JT_MS_web_URL              @"http://192.168.0.196/service"
 #define app_name_xiao_type           @"xjt"
 //新颜
 #define   XY_APIUSER            @"8150725329"
