@@ -120,7 +120,7 @@
     NSString *price=  [NSString stringWithFormat:@"%.2f元", [totalPrice floatValue]-[managementFree floatValue]];
     NSArray *temArr = @[@[],@[[NSString stringWithFormat:@"%@天",model.periodDays],interestStr,managementFree],@[price,[JFHSUtilsTool groupedString:model.cardNo]]];
     self.loanDetailArr  = [temArr mutableCopy];
-    self.totalPrice =[NSString stringWithFormat:@"%d", [totalPrice integerValue] * 100];
+    self.totalPrice =[NSString stringWithFormat:@"%ld", [totalPrice integerValue] * 100];
     //刷新 tb
     //刷新第二个section  和第三个section
     //    [self.BorrowingTb reloadData];
