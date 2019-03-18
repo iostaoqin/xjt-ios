@@ -384,8 +384,6 @@
     }
     return _palceHolderArr;
 }
-//18926066086  6214867815870507
-//17606619884   6270611103003846108
 -(void)checkBackqualified:(NSString *)bankStr{
     //
     if (bankStr.length > 8) {
@@ -470,5 +468,4 @@
         [[JFHudMsgTool shareHusMsg]hiddenHud:MBProgressHUDModeText];
     }
 }
-//18575511205
 @end
