@@ -2086,6 +2086,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jbb.xjl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "arm64 arm64e";
 			};
 			name = Debug;
 		};
@@ -2156,6 +2157,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jbb.xjl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "arm64 arm64e";
 			};
 			name = Release;
 		};
