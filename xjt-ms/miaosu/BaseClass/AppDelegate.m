@@ -218,14 +218,14 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
             //isLatestVersion 1 最新版本 0 不是
             if ([[NSString  stringWithFormat:@"%@",responseObject[@"isLatestVersion"]]isEqualToString:@"1"]) {
                 //最新版本提示用户 弹窗
-//                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"版本更新" message:[NSString stringWithFormat:@"检测到最新版本%@",responseObject[@"latestVersion"]] preferredStyle:UIAlertControllerStyleAlert];
-//                UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//                    NSString *urlstr = responseObject[@"latestAppUrl"];
-//                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlstr]];
-//                }];
-//                [sureAction setValue:[UIColor colorWithHexString:@"#62A7E9"] forKey:@"_titleTextColor"];
-//                [alertVC addAction:sureAction];
-//                [[[UIApplication sharedApplication] keyWindow].rootViewController presentViewController:alertVC animated:YES completion:nil];
+                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"版本更新" message:[NSString stringWithFormat:@"检测到最新版本%@",responseObject[@"latestVersion"]] preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    NSString *urlstr = responseObject[@"latestAppUrl"];
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlstr]];
+                }];
+                [sureAction setValue:[UIColor colorWithHexString:@"#62A7E9"] forKey:@"_titleTextColor"];
+                [alertVC addAction:sureAction];
+                [[[UIApplication sharedApplication] keyWindow].rootViewController presentViewController:alertVC animated:YES completion:nil];
                 
             }
         }
