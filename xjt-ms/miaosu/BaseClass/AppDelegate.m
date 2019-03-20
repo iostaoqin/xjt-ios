@@ -201,38 +201,9 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     [self JPPushService:launchOptions];
     /*新颜SDK初始化*/
     [self XYSDK];
-    /*检查版本更新*/
-    [self checkforVersionUpdates];
+   
 }
-#pragma mark - 检查版本更新
--(void)checkforVersionUpdates{
-    NSString *checkUrl =[NSString  stringWithFormat:@"%@/xjt/appVersion/info",JT_MS_URL];
-    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-    // app版本
-    NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-    NSDictionary *urlDic   = @{@"platform":@"ios",@"version":app_Version};
-    
-    [PPNetworkHelper GET:[JFHSUtilsTool conectUrl:[urlDic  mutableCopy] url:checkUrl] parameters:@{} success:^(id responseObject) {
-        JTLog(@"%@",responseObject);
-        if ([[NSString  stringWithFormat:@"%@",responseObject[@"resultCode"]]isEqualToString:@"0"]) {
-            //isLatestVersion 1 最新版本 0 不是
-            if ([[NSString  stringWithFormat:@"%@",responseObject[@"isLatestVersion"]]isEqualToString:@"1"]) {
-                //最新版本提示用户 弹窗
-//                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"版本更新" message:[NSString stringWithFormat:@"检测到最新版本%@",responseObject[@"latestVersion"]] preferredStyle:UIAlertControllerStyleAlert];
-//                UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//                    NSString *urlstr = responseObject[@"latestAppUrl"];
-//                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlstr]];
-//                }];
-//                [sureAction setValue:[UIColor colorWithHexString:@"#62A7E9"] forKey:@"_titleTextColor"];
-//                [alertVC addAction:sureAction];
-//                [[[UIApplication sharedApplication] keyWindow].rootViewController presentViewController:alertVC animated:YES completion:nil];
-                
-            }
-        }
-    } failure:^(NSError *error) {
-        
-    }];
-}
+
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
     
     return NO;
