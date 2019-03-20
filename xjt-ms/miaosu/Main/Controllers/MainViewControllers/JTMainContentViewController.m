@@ -35,8 +35,8 @@ NSInteger certicationMainCount = 0;
 @implementation JTMainContentViewController
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"loginSucessNotice" object:nil];
-     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"personalSucessNotice" object:nil];
-
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"personalSucessNotice" object:nil];
+    
     
 }
 -(void)viewWillAppear:(BOOL)animated{
@@ -54,21 +54,21 @@ NSInteger certicationMainCount = 0;
     if (@available(iOS 11.0, *)) {
         self.bottomScrollView.contentInsetAdjustmentBehavior  =UIScrollViewContentInsetAdjustmentNever;
     }
-   [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginSucessNoticeEvent) name:@"loginSucessNotice" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginSucessNoticeEvent) name:@"loginSucessNotice" object:nil];
     //
-      [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(personalSucessNoticeEvent) name:@"personalSucessNotice" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(personalSucessNoticeEvent) name:@"personalSucessNotice" object:nil];
     certicationMainCount   = 0;
     self.loanArray=[NSMutableArray array];
     /**获取个人信息**/
     [self personalData];
     
-   
+    
 }
 
 #pragma mark  - 登录成功之后重新请求用户信息
 -(void)personalSucessNoticeEvent{
     certicationMainCount  =0;
-     [self personalData];
+    [self personalData];
 }
 #pragma mark  - 请求配置信息
 -(void)loanPropertiesData{
@@ -77,9 +77,9 @@ NSInteger certicationMainCount = 0;
     if (![JFHSUtilsTool isBlankString:userInfo.keyStr]) {
         [PPNetworkHelper setValue:userInfo.keyStr forHTTPHeaderField:@"API_KEY"];
     }else{
-         [PPNetworkHelper setValue:@"" forHTTPHeaderField:@"API_KEY"];
+        [PPNetworkHelper setValue:@"" forHTTPHeaderField:@"API_KEY"];
     }
-     [[JFHudMsgTool shareHusMsg]msgHud:MBProgressHUDModeIndeterminate msgStr:@"加载中"];
+    [[JFHudMsgTool shareHusMsg]msgHud:MBProgressHUDModeIndeterminate msgStr:@"加载中"];
     [PPNetworkHelper GET:loanStr parameters:nil success:^(id responseObject) {
         JTLog(@"%@",responseObject);
         [[JFHudMsgTool shareHusMsg]hiddenHud:MBProgressHUDModeIndeterminate];
@@ -106,7 +106,7 @@ NSInteger certicationMainCount = 0;
             }
         }
     } failure:^(NSError *error) {
-     [[JFHudMsgTool shareHusMsg]hiddenHud:MBProgressHUDModeIndeterminate];
+        [[JFHudMsgTool shareHusMsg]hiddenHud:MBProgressHUDModeIndeterminate];
         JTLog(@"%@",error);
         if (error.code== -1009) {
             //断开互联网的连接
@@ -122,19 +122,19 @@ NSInteger certicationMainCount = 0;
 -(void)notificationlistsData{
     JFUserInfoTool *userinfo =[JFUserManager shareManager].currentUserInfo;
     if (![JFHSUtilsTool isBlankString:userinfo.keyStr]) {
-    NSString *noticeurl  =[NSString stringWithFormat:@"%@/xjt/messages",JT_MS_URL];
-    
-    [PPNetworkHelper setValue:userinfo.keyStr forHTTPHeaderField:@"API_KEY"];
-
-    [PPNetworkHelper GET:noticeurl parameters:nil success:^(id responseObject) {
-        JTLog(@"请求通知信息=%@",responseObject);
-        if ([[NSString stringWithFormat:@"%@",responseObject[@"resultCode"]]isEqualToString:@"0"]) {
-            //unreadCount  根据这个值来判断 是否显示红点
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"messagesNotification" object:[NSString stringWithFormat:@"%@",responseObject[@"unreadCount"]]];
-        }
-    } failure:^(NSError *error) {
-    
-    }];
+        NSString *noticeurl  =[NSString stringWithFormat:@"%@/xjt/messages",JT_MS_URL];
+        
+        [PPNetworkHelper setValue:userinfo.keyStr forHTTPHeaderField:@"API_KEY"];
+        
+        [PPNetworkHelper GET:noticeurl parameters:nil success:^(id responseObject) {
+            JTLog(@"请求通知信息=%@",responseObject);
+            if ([[NSString stringWithFormat:@"%@",responseObject[@"resultCode"]]isEqualToString:@"0"]) {
+                //unreadCount  根据这个值来判断 是否显示红点
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"messagesNotification" object:[NSString stringWithFormat:@"%@",responseObject[@"unreadCount"]]];
+            }
+        } failure:^(NSError *error) {
+            
+        }];
         
     }
 }
@@ -142,7 +142,7 @@ NSInteger certicationMainCount = 0;
 -(void)personalData{
     JFUserInfoTool *userInf= [JFUserManager shareManager].currentUserInfo;
     if (![JFHSUtilsTool isBlankString:userInf.keyStr]) {
-       
+        
         NSString *certificationUrl  =[NSString stringWithFormat:@"%@/xjt/user",JT_MS_URL];
         [PPNetworkHelper setValue:userInf.keyStr forHTTPHeaderField:@"API_KEY"];
         [PPNetworkHelper GET:certificationUrl parameters:nil success:^(id responseObject) {
@@ -156,11 +156,11 @@ NSInteger certicationMainCount = 0;
                     }
                 }
                 //保存名字和已经认证多少项
-              
+                
                 if([JFHSUtilsTool isOtherBlankString:basiDic[@"userName"]]){
                     JTLog(@"456");
                 }else{
-                   userInf.userNameStr  = [NSString stringWithFormat:@"%@",basiDic[@"userName"]];
+                    userInf.userNameStr  = [NSString stringWithFormat:@"%@",basiDic[@"userName"]];
                 }
                 userInf.certificationNumberStr = [NSString stringWithFormat:@"%zd",certicationMainCount];
                 userInf.xteleNumberStr  = basiDic[@"phoneNumber"];
@@ -172,7 +172,7 @@ NSInteger certicationMainCount = 0;
             }
             JTLog(@"%@",responseObject);
         } failure:^(NSError *error) {
-           
+            
         }];
     }
 }
@@ -187,21 +187,21 @@ NSInteger certicationMainCount = 0;
             
             [self tangchuangUI];
         });
-        }
+    }
     
 }
 -(void)headerHomeUI{
-
+    
     _headerView  = [[JTHomeHeaderView alloc]initWithFrame:CGRectMake(0, 0, JT_ScreenW, 235 *JT_ADAOTER_WIDTH)];
     [self.view addSubview:_headerView];
     _headerView.delegate =self;
-     [self.view addSubview:self.firstCollection];
+    [self.view addSubview:self.firstCollection];
     [_firstCollection mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.headerView.mas_bottom);
         make.width.mas_equalTo(JT_ScreenW);
         make.left.equalTo(self.view);
         make.height.mas_equalTo(115 *JT_ADAOTER_WIDTH);
-      
+        
     }];
     _thirdHomeView = [JTHomeThirdView new];
     [self.view addSubview:_thirdHomeView];
@@ -229,14 +229,14 @@ NSInteger certicationMainCount = 0;
         make.centerX.equalTo(self.view);
         make.top.equalTo(self.thirdHomeView.mas_bottom).offset(37* JT_ADAOTER_WIDTH);
     }];
-   
+    
     //goloan
     [borrowingBtn addTarget:self action:@selector(borrowingBtnClick) forControlEvents:UIControlEventTouchUpInside];
     //高度是否超过一整屏幕
-//    CGFloat height =_headerView.frame.size.height +115 *JT_ADAOTER_WIDTH + 220 *JT_ADAOTER_WIDTH + 83 *JT_ADAOTER_WIDTH+ 40 *JT_ADAOTER_WIDTH;
-//    if (height > JT_ScreenH) {
-//        self.view.contentSize   = CGSizeMake(0, height);
-//    }
+    //    CGFloat height =_headerView.frame.size.height +115 *JT_ADAOTER_WIDTH + 220 *JT_ADAOTER_WIDTH + 83 *JT_ADAOTER_WIDTH+ 40 *JT_ADAOTER_WIDTH;
+    //    if (height > JT_ScreenH) {
+    //        self.view.contentSize   = CGSizeMake(0, height);
+    //    }
     //
     UITapGestureRecognizer *thirdTapGesture   =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(thirdGestureEvent)];
     [_thirdHomeView.nameLable addGestureRecognizer:thirdTapGesture];
@@ -264,12 +264,10 @@ NSInteger certicationMainCount = 0;
 }
 #pragma mark - 去borrowing
 -(void)borrowingBtnClick{
-        JFUserInfoTool *userInfo =[JFUserManager shareManager].currentUserInfo;
+    JFUserInfoTool *userInfo =[JFUserManager shareManager].currentUserInfo;
     if (self.loanArray.count) {
+        JTLoanModel *model  =self.loanArray[0];
         
-    
-    JTLoanModel *model  =self.loanArray[0];
- 
         if ([userInfo.certificationNumberStr isEqualToString:CERICATION]) {
             JTBorrowingViewController *borrowVC =[[JTBorrowingViewController  alloc]init];
             borrowVC.maxValue = [NSString stringWithFormat:@"%ld",[model.maxAmount integerValue]/100];
@@ -277,7 +275,7 @@ NSInteger certicationMainCount = 0;
             borrowVC.feedarr =model.propertys;
             [self.navigationController pushViewController:borrowVC animated:YES];
         }else{
-           
+            
             if ([JFHSUtilsTool isBlankString:userInfo.keyStr]) {
                 JTLoginViewController *loginVC  =[[JTLoginViewController alloc]init];
                 JTBaseNavigationController *nav = [[JTBaseNavigationController alloc] initWithRootViewController:loginVC];
@@ -329,7 +327,7 @@ NSInteger certicationMainCount = 0;
                        layout:(UICollectionViewLayout *)collectionViewLayout
        insetForSectionAtIndex:(NSInteger)section
 {
-     return UIEdgeInsetsMake(0, 15 *JT_ADAOTER_WIDTH, 0, 15*JT_ADAOTER_WIDTH);//分别为上、左、下、右
+    return UIEdgeInsetsMake(0, 15 *JT_ADAOTER_WIDTH, 0, 15*JT_ADAOTER_WIDTH);//分别为上、左、下、右
 }
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     JFMainHeaderNewCollectionViewCell *firstCell = (JFMainHeaderNewCollectionViewCell  *)[collectionView dequeueReusableCellWithReuseIdentifier:@"priceCollection" forIndexPath:indexPath];
@@ -349,14 +347,14 @@ NSInteger certicationMainCount = 0;
         [self.sideMenuViewController hideMenuViewController];
     }else{
         
-    if (indexPath.row  ==0) {
-        //订单
-        JTLoanOrderViewController *loanVC =[[JTLoanOrderViewController alloc]init];
-        [self.navigationController pushViewController:loanVC animated:YES];
-    }else{
-        JTPaymentOrderViewController *payOrderVc  =[[JTPaymentOrderViewController alloc]init];
-        [self.navigationController pushViewController:payOrderVc animated:YES];
-    }
+        if (indexPath.row  ==0) {
+            //订单
+            JTLoanOrderViewController *loanVC =[[JTLoanOrderViewController alloc]init];
+            [self.navigationController pushViewController:loanVC animated:YES];
+        }else{
+            JTPaymentOrderViewController *payOrderVc  =[[JTPaymentOrderViewController alloc]init];
+            [self.navigationController pushViewController:payOrderVc animated:YES];
+        }
     }
 }
 -(void)tangchuangUI{
@@ -396,8 +394,8 @@ NSInteger certicationMainCount = 0;
         _firstCollection.dataSource = self;
         //h注册
         [_firstCollection registerClass:[JFMainHeaderNewCollectionViewCell class] forCellWithReuseIdentifier:@"priceCollection"];
-       _firstCollection.backgroundColor = [UIColor colorWithHexString:@"#ffffff"];
-       
+        _firstCollection.backgroundColor = [UIColor colorWithHexString:@"#ffffff"];
+        
     }
     return _firstCollection;
 }
@@ -417,13 +415,13 @@ NSInteger certicationMainCount = 0;
     
 }
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

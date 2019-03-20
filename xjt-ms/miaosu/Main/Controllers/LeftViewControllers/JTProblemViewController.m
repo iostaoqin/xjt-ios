@@ -63,7 +63,6 @@
     }else{
         return cellheight + 10 *JT_ADAOTER_WIDTH;
     }
-   
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *cell  = @"JTProblemTableViewCell";

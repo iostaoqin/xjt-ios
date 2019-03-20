@@ -65,11 +65,6 @@
     otherNameLable.textColor  =[UIColor colorWithHexString:@"#333333"];
     nameLable.text  = @"用户协议";
     nameLable.textColor  =[UIColor colorWithHexString:@"#62A7E9"];
-    
-//    UILongPressGestureRecognizer  *longTap =[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(imglongTapClick:)];
-//    [_codeImg addGestureRecognizer:longTap];
-//    _codeImg.userInteractionEnabled = YES;
-    //
     UITapGestureRecognizer  *nameTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nameTapClick)];
     [nameLable addGestureRecognizer:nameTap];
     nameLable.userInteractionEnabled = YES;
