@@ -123,18 +123,18 @@
 /*测试*/
 //#define JT_MS_URL              @"http://apitest.jiebangbang.cn:28080/xjtapi"
 /* 正式域名*/
-#define JT_MS_URL             @"http://xjtapi.fenqiduo.cn/xjtapi"
+#define JT_MS_URL                    @"http://xjtapi.fenqiduo.cn/xjtapi"
 #define app_name_xiao_type           @"xjt"
 //新颜
-#define   XY_APIUSER            @"8150725329"
-#define   XY_APIKEY             @"6613d600d19941a094753830bd6fc0af"
+#define   XY_APIUSER                 @"8150725329"
+#define   XY_APIKEY                  @"6613d600d19941a094753830bd6fc0af"
 
 //有盾人脸识别
-#define   PUB_KEY               @"b1fc9e48-495b-4479-bbcb-7911a4c21676"
-#define   SECRETKEY             @"9186f5fc-de70-48a3-843c-d12a94cf6c48"
+#define   PUB_KEY                    @"b1fc9e48-495b-4479-bbcb-7911a4c21676"
+#define   SECRETKEY                  @"9186f5fc-de70-48a3-843c-d12a94cf6c48"
 //
-#define   CERICATION             @"4"
-#define   appName             @"小金条"
+#define   CERICATION                 @"4"
+#define   appName                    @"小金条"
 
 #define NUM @"0123456789"
 #define ALPHA @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
