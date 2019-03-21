@@ -25,6 +25,7 @@
     // Do any additional setup after loading the view.
     self.title  = @"联系我们";
     self.view.backgroundColor =  [UIColor colorWithHexString:@"#F5F5F5"];
+    [[JFHudMsgTool shareHusMsg]msgHud:MBProgressHUDModeIndeterminate msgStr:@""];
     [self aboutUI];
 }
 -(void)aboutUI{
@@ -66,6 +67,7 @@
     UILongPressGestureRecognizer  *longTap =[[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(imglongTapClick:)];
     [_codeImg addGestureRecognizer:longTap];
     _codeImg.userInteractionEnabled = YES;
+    [[JFHudMsgTool shareHusMsg]hiddenHud:MBProgressHUDModeIndeterminate];
 }
 -(void)imglongTapClick:(UILongPressGestureRecognizer *)gesture
 
