@@ -70,7 +70,6 @@
     [[JFHudMsgTool shareHusMsg]hiddenHud:MBProgressHUDModeIndeterminate];
 }
 -(void)imglongTapClick:(UILongPressGestureRecognizer *)gesture
-
 {
     if(gesture.state==UIGestureRecognizerStateBegan){
         //    //长按的时候 判断用户是否授权相册
@@ -108,14 +107,6 @@
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
     }
 }
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+
 
 @end
