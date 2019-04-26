@@ -203,7 +203,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
             
         }
     } failure:^(NSError *error) {
-        JTLog(@"%@",error);
+        JTLog(@"appdelegate=%@",error);
         if (error.code   == -1009) {
             [[JFHudMsgTool shareHusMsg]msgHud:MBProgressHUDModeText msgStr:@"断网了...请重新连网再试"];
             [[JFHudMsgTool shareHusMsg]hiddenHud:MBProgressHUDModeText];

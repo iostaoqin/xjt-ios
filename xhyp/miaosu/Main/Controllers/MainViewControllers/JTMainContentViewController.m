@@ -106,6 +106,7 @@ NSInteger certicationMainCount = 0;
             }
         }
     } failure:^(NSError *error) {
+        
      [[JFHudMsgTool shareHusMsg]hiddenHud:MBProgressHUDModeIndeterminate];
         JTLog(@"%@",error);
         if (error.code== -1009) {
